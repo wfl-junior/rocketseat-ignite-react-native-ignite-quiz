@@ -2,6 +2,7 @@ import { Pressable, PressableProps, Text } from "react-native";
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
+  withTiming,
 } from "react-native-reanimated";
 import { THEME } from "../../styles/theme";
 import { styles } from "./styles";
@@ -31,11 +32,11 @@ export function Level({
   }));
 
   function handlePressIn() {
-    scale.value = 1.15;
+    scale.value = withTiming(1.15);
   }
 
   function handlePressOut() {
-    scale.value = 1;
+    scale.value = withTiming(1);
   }
 
   const color = TYPE_COLORS[type];
