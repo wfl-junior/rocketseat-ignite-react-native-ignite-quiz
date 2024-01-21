@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Pressable, PressableProps } from "react-native";
+import { GestureResponderEvent, Pressable, PressableProps } from "react-native";
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -8,6 +8,8 @@ import Animated, {
 } from "react-native-reanimated";
 import { THEME } from "../../styles/theme";
 import { styles } from "./styles";
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable);
 
 const TYPE_COLORS = {
   EASY: THEME.COLORS.BRAND_LIGHT,
@@ -23,6 +25,9 @@ interface LevelProps extends PressableProps {
 
 export function Level({
   title,
+  style,
+  onPressIn,
+  onPressOut,
   type = "EASY",
   isChecked = false,
   ...props
@@ -53,27 +58,31 @@ export function Level({
     ),
   }));
 
-  function handlePressIn() {
+  function handlePressIn(event: GestureResponderEvent) {
     scale.value = withTiming(1.15);
+    onPressIn?.(event);
   }
 
-  function handlePressOut() {
+  function handlePressOut(event: GestureResponderEvent) {
     scale.value = withTiming(1);
+    onPressOut?.(event);
   }
 
   return (
-    <Pressable onPressIn={handlePressIn} onPressOut={handlePressOut} {...props}>
-      <Animated.View
-        style={[
-          styles.container,
-          containerAnimatedStyle,
-          { borderColor: color },
-        ]}
-      >
-        <Animated.Text style={[styles.title, textAnimatedStyle]}>
-          {title}
-        </Animated.Text>
-      </Animated.View>
-    </Pressable>
+    <AnimatedPressable
+      {...props}
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      style={[
+        styles.container,
+        containerAnimatedStyle,
+        { borderColor: color },
+        style,
+      ]}
+    >
+      <Animated.Text style={[styles.title, textAnimatedStyle]}>
+        {title}
+      </Animated.Text>
+    </AnimatedPressable>
   );
 }
