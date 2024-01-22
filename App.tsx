@@ -3,8 +3,8 @@ import {
   Roboto_700Bold,
   useFonts,
 } from "@expo-google-fonts/roboto";
-import { Fragment } from "react";
 import { StatusBar } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { Loading } from "./src/components/Loading";
 import { Routes } from "./src/routes";
 
@@ -19,7 +19,7 @@ export default function App() {
   }
 
   return (
-    <Fragment>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <StatusBar
         translucent
         barStyle="light-content"
@@ -27,6 +27,6 @@ export default function App() {
       />
 
       <Routes />
-    </Fragment>
+    </GestureHandlerRootView>
   );
 }
