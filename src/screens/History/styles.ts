@@ -9,4 +9,19 @@ export const styles = StyleSheet.create({
   history: {
     padding: 32,
   },
+  swipeableContainer: {
+    height: 90,
+    width: "100%",
+    borderRadius: 6,
+    marginBottom: 12,
+    backgroundColor: THEME.COLORS.DANGER_LIGHT,
+  },
+  swipeableRemove: {
+    width: 90,
+    height: 90,
+    borderRadius: 6,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: THEME.COLORS.DANGER_LIGHT,
+  },
 });
